@@ -1,158 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satish Bonagiri - Resume</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #f4f4f9;
-        }
-        .container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        header {
-            border-bottom: 2px solid #0055a5;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-            color: #0055a5;
-            font-size: 2.2em;
-        }
-        .contact-info {
-            margin-top: 10px;
-            font-size: 0.9em;
-        }
-        .contact-info span {
-            margin: 0 10px;
-        }
-        h2 {
-            color: #0055a5;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            margin-top: 30px;
-            text-transform: uppercase;
-            font-size: 1.2em;
-        }
-        .experience-item, .education-item {
-            margin-bottom: 20px;
-        }
-        .job-title {
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-        }
-        .company {
-            color: #555;
-            font-style: italic;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-        .skills-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .skills-category {
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satish Bonagiri | Android Architect & Product Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #0b0f19;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.08);
+      --text: #ffffff;
+      --muted: #9aa4b2;
+      --accent: #6ee7f9;
+      --accent2: #8b5cf6;
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, rgba(139,92,246,0.25), transparent 20%),
+                  radial-gradient(circle at left, rgba(110,231,249,0.15), transparent 25%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(1200px, 92%);
+      margin: auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(11,15,25,0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 60px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      color: var(--accent);
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.02;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, var(--accent), #ffffff, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1.08rem;
+      max-width: 700px;
+      margin-bottom: 36px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 28px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #081018;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.12);
+      color: white;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      overflow: hidden;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(255,255,255,0.06), transparent);
+      pointer-events: none;
+    }
+
+    .profile-img {
+      width: 100%;
+      border-radius: 24px;
+      object-fit: cover;
+      filter: grayscale(0.05);
+    }
+
+    .experience-box {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.04);
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+
+    .mini-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    section {
+      padding: 110px 0;
+    }
+
+    .section-title {
+      font-size: 2.6rem;
+      margin-bottom: 18px;
+      letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.8;
+      margin-bottom: 60px;
+    }
+
+    .skills-grid,
+    .project-grid,
+    .timeline {
+      display: grid;
+      gap: 24px;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 30px;
+      transition: 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(110,231,249,0.35);
+    }
+
+    .card h3 {
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .card p,
+    .timeline-item p,
+    .project-card p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .project-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border-radius: 30px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: scale(1.02);
+    }
+
+    .pill {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(110,231,249,0.1);
+      color: var(--accent);
+      font-size: 0.82rem;
+    }
+
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 18px;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-left: 60px;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -50px;
+      top: 35px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      box-shadow: 0 0 0 8px rgba(110,231,249,0.08);
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 10px;
+    }
+
+    .company {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .contact-box {
+      text-align: center;
+      padding: 70px 30px;
+      border-radius: 40px;
+      background: linear-gradient(145deg, rgba(139,92,246,0.14), rgba(110,231,249,0.08));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .contact-box h2 {
+      font-size: clamp(2rem,4vw,4rem);
+      margin-bottom: 20px;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 30px;
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 40px 0 60px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .experience-box {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 90px 0;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Satish Bonagiri</h1>
-        <div class="contact-info">
-            <span>📞 +91 8197463235</span> | 
-            <span>✉️ satish_mtech@yahoo.com</span>
-        </div>
-    </header>
+  <nav>
+    <div class="container nav-inner">
+      <div class="logo">Satish<span>.dev</span></div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
 
-    <section>
-        <h2>Professional Summary</h2>
-        <ul>
-            <li>12+ years of professional experience in Android development and team management (10+ years Android, 2 years Core Java).</li>
-            <li>Developed and shipped 20+ Android applications across e-commerce, retail, finance, healthcare, and education sectors.</li>
-            <li>International experience at <strong>Samsung Korea</strong> (3 months) on Android Wear application development.</li>
-            <li>Led technical design reviews, established code standards, and mentored junior engineers.</li>
-            <li>Collaborated with product managers and designers to translate business needs into technical solutions.</li>
-        </ul>
-    </section>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="tag">● Android Architect • Product Engineer • UI Driven Thinker</div>
+        <h1>
+          Building <span class="gradient">Elegant Mobile Experiences</span> That Scale.
+        </h1>
+        <p>
+          I’m Satish Bonagiri — an Android engineer with 12+ years of experience designing, architecting, and launching high-performance mobile products across fintech, e-commerce, healthcare, wearables, and education.
+          I combine deep engineering expertise with product thinking and polished UI/UX execution.
+        </p>
 
-    <section>
-        <h2>Technical Skills</h2>
-        <div class="skills-list">
-            <div><span class="skills-category">Languages:</span> Java, Kotlin, C</div><br>
-            <div><span class="skills-category">Tools:</span> Android Studio, Git, GitHub, Perforce, JIRA</div><br>
-            <div><span class="skills-category">Platforms:</span> Android (2.1-14.0), Android Wear</div><br>
-            <div><span class="skills-category">3rd Party API’s Integration:</span> Leanplum, Analytics, Ad Networks, Google Pay</div>
+        <div class="cta-group">
+          <a href="#projects" class="btn btn-primary">Explore Projects</a>
+          <a href="#contact" class="btn btn-secondary">Let's Connect</a>
         </div>
-    </section>
+      </div>
 
-    <section>
-        <h2>Professional Experience</h2>
-        
-        <div class="experience-item">
-            <div class="job-title">
-                <span>Member of Technical Staff (MTS I)</span>
-                <span>Sep 2019 – May 2023</span>
-            </div>
-            <div class="company">PayPal, Bengaluru</div>
-            <ul>
-                <li>Delivered country-specific features for Brazil, India, Japan, and Mexico markets.</li>
-                <li>Received Spot Award for Brazil PIX initiative launch and Bravo recognition for team collaboration.</li>
-            </ul>
+      <div class="hero-card">
+        <img src="your_linkedin_Photo.jpeg" alt="Satish Bonagiri" class="profile-img">
+
+        <div class="experience-box">
+          <div class="mini-card">
+            <h3>12+</h3>
+            <span>Years Experience</span>
+          </div>
+          <div class="mini-card">
+            <h3>20+</h3>
+            <span>Apps Delivered</span>
+          </div>
+          <div class="mini-card">
+            <h3>1M+</h3>
+            <span>Users Reached</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">
+        M.Tech graduate from IIT Kharagpur with extensive experience in Android application development, architecture, performance optimization, and product engineering. Worked with organizations like PayPal, Samsung, Tesco, Quikr, Capgemini, Mindtree, and multiple startups to build scalable mobile ecosystems.
+      </p>
+
+      <div class="skills-grid">
+        <div class="card">
+          <h3>Mobile Architecture</h3>
+          <p>Specialized in scalable Android architecture, modular systems, Jetpack Compose, Kotlin, Java, offline-first systems, analytics integrations, and performance optimization.</p>
         </div>
 
-        <div class="experience-item">
-            <div class="job-title">
-                <span>Senior Software Engineer (SDE II)</span>
-                <span>June 2017 – Aug 2019</span>
-            </div>
-            <div class="company">Tesco, Bengaluru</div>
-            <ul>
-                <li>Led design and development of Tesco Club Card app (1M+ downloads, 4+ rating).</li>
-                <li>Reduced crash rate from 0.3% to 0.1% through performance optimization.</li>
-                <li>Mentored team and established daily technical reviews; received "Star of Moment" award.</li>
-            </ul>
+        <div class="card">
+          <h3>Leadership</h3>
+          <p>Led engineering teams, conducted design reviews, established coding standards, mentored developers, and collaborated with product, UX, and analytics teams.</p>
         </div>
-    </section>
 
-    <section>
-        <h2>Education</h2>
-        <div class="education-item">
-            <div class="job-title">
-                <span>M.Tech in Computer Science</span>
-                <span>IIT-Kharagpur</span>
-            </div>
-            <div>CGPA: 6.9/10</div>
+        <div class="card">
+          <h3>AI-Augmented Engineering</h3>
+          <p>Leveraging Gemini, Claude, and ChatGPT to accelerate SDLC, improve code quality, prototype faster, and streamline engineering workflows.</p>
         </div>
-        <div class="education-item">
-            <div class="job-title">
-                <span>M.Sc. in Computer Science</span>
-                <span>S.V. University</span>
-            </div>
-            <div>Score: 77.3%</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title">Core Expertise</h2>
+      <p class="section-subtitle">
+        A strong blend of engineering depth, product execution, and user-centric thinking.
+      </p>
+
+      <div class="skills-grid">
+        <div class="card">
+          <h3>Android & Wear OS</h3>
+          <p>Android SDK, Kotlin, Java, Jetpack Compose, Wear OS, SQLite, Realm, Sensor APIs, Android Architecture Components.</p>
         </div>
-    </section>
-</div>
+
+        <div class="card">
+          <h3>Product Engineering</h3>
+          <p>End-to-end product delivery, rapid MVP development, feature planning, analytics, experimentation, and scalability.</p>
+        </div>
+
+        <div class="card">
+          <h3>Tools & Workflow</h3>
+          <p>Android Studio, GitHub, JIRA, Firebase, Looker, Google Analytics, Leanplum, CI/CD pipelines, Agile methodologies.</p>
+        </div>
+
+        <div class="card">
+          <h3>UI/UX Thinking</h3>
+          <p>Elegant motion design, dark mode systems, responsive layouts, usability optimization, intuitive interactions, and accessibility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-subtitle">
+        Selected projects and products built across fintech, gaming, wearable technology, retail, and classifieds ecosystems.
+      </p>
+
+      <div class="project-grid">
+
+        <div class="project-card">
+          <h3>Card Match Game</h3>
+          <p>
+            A modern memory matching game built with Kotlin & Jetpack Compose featuring elegant animations, dark mode, multiplayer support, tutorials, and AI-driven buddy gameplay.
+          </p>
+          <div class="pill">Jetpack Compose • Kotlin • Animation</div>
+        </div>
+
+        <div class="project-card">
+          <h3>PayPal Consumer App</h3>
+          <p>
+            Contributed to global fintech experiences for India, Brazil, Japan, and Mexico markets. Built scalable Android features for payments, wallets, and financial flows.
+          </p>
+          <div class="pill">FinTech • Scalable Systems • Analytics</div>
+        </div>
+
+        <div class="project-card">
+          <h3>Tesco Clubcard</h3>
+          <p>
+            Led development for a 1M+ downloads retail rewards platform with coupons, QR experiences, analytics integrations, and performance improvements reducing crashes significantly.
+          </p>
+          <div class="pill">Retail • Loyalty • Stability Engineering</div>
+        </div>
+
+        <div class="project-card">
+          <h3>Samsung Wear OS Apps</h3>
+          <p>
+            Developed heart-rate monitoring, pedometer, and wearable provider apps leveraging sensors, databases, and real-time integrations on Samsung Gear devices.
+          </p>
+          <div class="pill">Wear OS • Sensors • Health Tech</div>
+        </div>
+
+        <div class="project-card">
+          <h3>Quikr Marketplace</h3>
+          <p>
+            Architected Cars & Bikes modules for one of India's largest classifieds apps with analytics-driven optimization and scalable mobile workflows.
+          </p>
+          <div class="pill">Marketplace • UX • Product Delivery</div>
+        </div>
+
+        <div class="project-card">
+          <h3>Startup Ecosystems</h3>
+          <p>
+            Worked as founding engineer and technical lead building MVPs, validating ideas, leading server/UI teams, and converting concepts into scalable mobile products.
+          </p>
+          <div class="pill">Startups • MVPs • Leadership</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <h2 class="section-title">Professional Journey</h2>
+      <p class="section-subtitle">
+        Over a decade of engineering excellence across global organizations and startups.
+      </p>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <h3>Member of Technical Staff I</h3>
+          <span class="company">PayPal • 2019 — 2023</span>
+          <p>Built and launched Android fintech features for international markets while collaborating with product, UX, and analytics teams.</p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Software Development Engineer II</h3>
+          <span class="company">Tesco Bengaluru • 2017 — 2019</span>
+          <p>Led Android architecture and feature development for Tesco Clubcard while improving stability and mentoring teams.</p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Lead Software Engineer</h3>
+          <span class="company">Quikr • 2015 — 2016</span>
+          <p>Architected marketplace experiences for the Cars & Bikes category and optimized user journeys.</p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Technical Lead</h3>
+          <span class="company">Samsung R&D • 2013 — 2014</span>
+          <p>Developed Android Wear applications focused on health tracking, sensor integrations, and wearable communication systems.</p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Software Consultant & Engineer</h3>
+          <span class="company">Capgemini • Mindtree • Robosoft • Wipro</span>
+          <p>Delivered mobile solutions for healthcare, retail, recruitment, and enterprise ecosystems.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="contact-box">
+        <h2>Let’s Build Something Exceptional</h2>
+        <p>
+          Available for Android architecture consulting, product engineering, mobile platform modernization, and innovative app experiences.
+        </p>
+
+        <div class="cta-group" style="justify-content:center;">
+          <a href="mailto:satish_mtech@yahoo.com" class="btn btn-primary">satish_mtech@yahoo.com</a>
+          <a href="tel:+918197463235" class="btn btn-secondary">+91 8197463235</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Crafted with elegance, clarity, and modern UI aesthetics • © 2026 Satish Bonagiri
+  </footer>
 
 </body>
 </html>
