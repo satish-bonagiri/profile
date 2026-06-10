@@ -1045,6 +1045,68 @@ section[id] {
       box-shadow: 0 20px 48px rgba(15,23,42,0.13);
     }
 
+
+    /* Hero spacing refinement: layout-only changes, no content changes */
+    #home.hero {
+      min-height: calc(100vh - 76px) !important;
+      padding: 64px 0 56px !important;
+    }
+
+    #home .hero-grid {
+      gap: clamp(34px, 4vw, 56px);
+      align-items: center;
+    }
+
+    #home .tag {
+      margin-bottom: 34px;
+    }
+
+    #home.hero h1 {
+      font-size: clamp(2.7rem, 5vw, 4.75rem);
+      line-height: 1.04;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+
+    #home.hero p {
+      line-height: 1.72;
+      margin-bottom: 28px;
+      max-width: 690px;
+    }
+
+    #home .cta-group {
+      margin-top: 0;
+    }
+
+    #home .hero-card {
+      padding: 22px;
+    }
+
+    #home .experience-box {
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    #home .mini-card {
+      padding: 16px;
+    }
+
+    @media (max-width: 900px) {
+      #home.hero {
+        min-height: auto !important;
+        padding: 70px 0 64px !important;
+      }
+
+      #home .tag {
+        margin-bottom: 28px;
+      }
+
+      #home.hero h1 {
+        font-size: clamp(2.45rem, 10vw, 3.8rem);
+        margin-bottom: 22px;
+      }
+    }
+
 </style>
 </head>
 <body>
