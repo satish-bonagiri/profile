@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" data-theme="dark">
+<html data-theme="dark" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -8,17 +8,30 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    (function() {
+      try {
+        const stored = window.localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', stored === 'light' ? 'light' : 'dark');
+      } catch (e) {}
+    })();
+  </script>
 <style>
+    /* Intent-Based Color Token Architectures via RGB Triplets */
     :root {
       --bg: #0b0f19;
       --card: rgba(255,255,255,0.06);
       --border: rgba(255,255,255,0.08);
       --text: #ffffff;
       --muted: #9aa4b2;
-      --accent: #6ee7f9;
-      --accent2: #8b5cf6;
+      
+      --accent-rgb: 110, 231, 249; /* Cyan */
+      --accent2-rgb: 139, 92, 246; /* Purple */
+      --accent: rgb(var(--accent-rgb));
+      --accent2: rgb(var(--accent2-rgb));
+      
       --shadow: 0 20px 50px rgba(0,0,0,0.35);
-      --nav-offset: 90px;
+      --nav-offset: 76px;
     }
 
     html[data-theme="light"] {
@@ -27,8 +40,12 @@
       --border: rgba(15,23,42,0.10);
       --text: #0f172a;
       --muted: #475569;
-      --accent: #0284c7;
-      --accent2: #7c3aed;
+      
+      --accent-rgb: 2, 132, 199; /* Deep Sky Blue */
+      --accent2-rgb: 124, 58, 237; /* Vibrant Purple */
+      --accent: rgb(var(--accent-rgb));
+      --accent2: rgb(var(--accent2-rgb));
+      
       --shadow: 0 20px 45px rgba(15,23,42,0.10);
       color-scheme: light;
     }
@@ -49,24 +66,23 @@
     }
 
     html {
-      scroll-padding-top: var(--nav-offset);
+      scroll-behavior: smooth;
       scrollbar-gutter: stable;
       color-scheme: dark;
-      transition: color-scheme 0.3s ease;
     }
 
     section[id] {
-      scroll-margin-top: var(--nav-offset);
+      scroll-margin-top: calc(var(--nav-offset) + 24px);
     }
 
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text);
       overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+      transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
       background:
-        radial-gradient(circle at top right, rgba(139,92,246,0.25), transparent 20%),
-        radial-gradient(circle at left, rgba(110,231,249,0.15), transparent 25%),
+        radial-gradient(circle at top right, rgba(var(--accent2-rgb), 0.25), transparent 20%),
+        radial-gradient(circle at left, rgba(var(--accent-rgb), 0.15), transparent 25%),
         var(--bg);
     }
 
@@ -77,8 +93,8 @@
 
     html[data-theme="light"] body {
       background:
-        radial-gradient(circle at top right, rgba(124,58,237,0.16), transparent 24%),
-        radial-gradient(circle at left, rgba(2,132,199,0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(var(--accent2-rgb), 0.16), transparent 24%),
+        radial-gradient(circle at left, rgba(var(--accent-rgb), 0.12), transparent 28%),
         var(--bg);
     }
 
@@ -115,10 +131,8 @@
     .back-to-top:focus-visible {
       outline: 2px dashed var(--accent);
       outline-offset: 4px;
-      box-shadow: 0 0 0 6px rgba(110,231,249,0.16), var(--shadow);
+      box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0.16), var(--shadow);
     }
-
-
 
     .sr-only {
       position: absolute;
@@ -132,14 +146,9 @@
       border: 0;
     }
 
-    [aria-current="page"] {
-      color: var(--text);
-      background: rgba(110,231,249,0.12);
-    }
-
-    html[data-theme="light"] [aria-current="page"] {
-      color: #0f172a;
-      background: rgba(2,132,199,0.10);
+    [aria-current="location"] {
+      color: var(--text) !important;
+      background: rgba(var(--accent-rgb), 0.12) !important;
     }
 
     main:focus {
@@ -156,7 +165,7 @@
       -webkit-backdrop-filter: blur(16px) saturate(150%);
       will-change: transform;
       transform: translateZ(0);
-      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: background 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
     }
 
     nav::after {
@@ -167,7 +176,7 @@
       bottom: -1px;
       height: 1px;
       pointer-events: none;
-      background: linear-gradient(90deg, transparent, rgba(110,231,249,0.35), transparent);
+      background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.35), transparent);
       opacity: 0.5;
     }
 
@@ -178,7 +187,7 @@
     }
 
     html[data-theme="light"] nav::after {
-      background: linear-gradient(90deg, transparent, rgba(2,132,199,0.25), transparent);
+      background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.25), transparent);
     }
 
     .nav-inner {
@@ -224,7 +233,7 @@
       margin-right: 9px;
       border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 18px rgba(110,231,249,0.55);
+      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.55);
     }
 
     html[data-theme="light"] .logo-code {
@@ -272,13 +281,13 @@
     .theme-chip:focus-visible {
       color: var(--text);
       background: rgba(255,255,255,0.06);
-      border-color: rgba(110,231,249,0.22);
+      border-color: rgba(var(--accent-rgb), 0.22);
     }
 
     .theme-chip[aria-pressed="true"] {
       color: var(--text);
-      background: rgba(110,231,249,0.10);
-      border-color: rgba(110,231,249,0.18);
+      background: rgba(var(--accent-rgb), 0.10);
+      border-color: rgba(var(--accent-rgb), 0.18);
     }
 
     html[data-theme="light"] .theme-chip {
@@ -291,14 +300,14 @@
     html[data-theme="light"] .theme-chip:hover,
     html[data-theme="light"] .theme-chip:focus-visible {
       color: #0f172a;
-      background: rgba(2,132,199,0.08);
-      border-color: rgba(2,132,199,0.16);
+      background: rgba(var(--accent-rgb), 0.08);
+      border-color: rgba(var(--accent-rgb), 0.16);
     }
 
     html[data-theme="light"] .theme-chip[aria-pressed="true"] {
       color: #0f172a;
-      background: rgba(2,132,199,0.10);
-      border-color: rgba(2,132,199,0.16);
+      background: rgba(var(--accent-rgb), 0.10);
+      border-color: rgba(var(--accent-rgb), 0.16);
     }
 
     .nav-links {
@@ -336,13 +345,6 @@
       background: rgba(255,255,255,0.06);
     }
 
-    .nav-links a[aria-current="location"],
-    .mobile-nav a[aria-current="location"] {
-      color: var(--text);
-      background: rgba(110,231,249,0.12);
-      font-weight: 500;
-    }
-
     html[data-theme="light"] .nav-links {
       background: rgba(255,255,255,0.72);
       border-color: rgba(15,23,42,0.08);
@@ -356,13 +358,7 @@
     html[data-theme="light"] .nav-links a:hover,
     html[data-theme="light"] .nav-links a:focus-visible {
       color: #0f172a;
-      background: rgba(2,132,199,0.08);
-    }
-
-    html[data-theme="light"] .nav-links a[aria-current="location"],
-    html[data-theme="light"] .mobile-nav a[aria-current="location"] {
-      color: #0f172a;
-      background: rgba(2,132,199,0.10);
+      background: rgba(var(--accent-rgb), 0.08);
     }
 
     .mobile-menu-btn,
@@ -381,11 +377,11 @@
       background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.035));
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 26px rgba(0,0,0,0.16);
       cursor: pointer;
-      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+      transition: transform 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6), border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
     }
 
     .mobile-menu-btn:hover {
-      border-color: rgba(110,231,249,0.35);
+      border-color: rgba(var(--accent-rgb), 0.35);
       transform: translateY(-2px);
       box-shadow: 0 12px 30px rgba(0,0,0,0.22);
     }
@@ -407,7 +403,7 @@
       height: 2px;
       border-radius: 999px;
       background: currentColor;
-      transition: transform 0.25s ease, opacity 0.25s ease, top 0.25s ease;
+      transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease, top 0.25s ease;
     }
 
     .mobile-menu-icon::before { top: 0; }
@@ -600,23 +596,25 @@
       gap: 20px;
     }
 
+    /* Container queries layout mechanism replacing grid auto-fit stretching flaws */
     .skills-grid {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
     }
 
     .project-grid,
     .certifications-grid {
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 
     .card,
     .project-card,
-    .timeline-item {
+    .timeline-item,
+    .certification-card {
       background: var(--card);
       border: 1px solid var(--border);
       box-shadow: 0 14px 35px rgba(0,0,0,0.18);
-      transition: 0.35s ease;
+      transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease-in-out;
     }
 
     .card,
@@ -627,11 +625,31 @@
       padding: 30px;
     }
 
-    .card:hover,
-    .project-card:hover,
-    .certification-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(110,231,249,0.35);
+    /* Isolated Hover States Preventing Sticky Touch Interactions on Mobile */
+    @media (hover: hover) {
+      .card:hover,
+      .project-card:hover,
+      .certification-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(var(--accent-rgb), 0.35);
+        box-shadow: 0 20px 48px rgba(0,0,0,0.22);
+      }
+      .btn-primary:hover {
+        transform: translateY(-4px);
+      }
+      .btn-secondary:hover {
+        transform: translateY(-3px);
+        border-color: rgba(var(--accent-rgb), 0.35);
+      }
+      .back-to-top:hover {
+        transform: translateY(-4px);
+      }
+      html[data-theme="light"] .card:hover,
+      html[data-theme="light"] .project-card:hover,
+      html[data-theme="light"] .certification-card:hover {
+        border-color: rgba(var(--accent-rgb), 0.24);
+        box-shadow: 0 20px 48px rgba(15,23,42,0.13);
+      }
     }
 
     .card h3,
@@ -650,7 +668,7 @@
     .project-card p,
     .certification-card p {
       color: var(--muted);
-      line-height: 1.8;
+      line-height: 1.65;
     }
 
     .project-card::before {
@@ -659,13 +677,8 @@
       inset: 0;
       pointer-events: none;
       opacity: 0;
-      background: linear-gradient(145deg, rgba(110,231,249,0.08), transparent 45%);
-      transition: 0.35s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 20px 48px rgba(0,0,0,0.22);
+      background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.08), transparent 45%);
+      transition: opacity 0.35s ease;
     }
 
     .project-card:hover::before {
@@ -683,7 +696,7 @@
       border-radius: 999px;
       color: var(--accent);
       font-size: 0.82rem;
-      background: rgba(110,231,249,0.1);
+      background: rgba(var(--accent-rgb), 0.1);
     }
 
     .timeline {
@@ -716,7 +729,7 @@
       height: 18px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent2), var(--accent));
-      box-shadow: 0 0 0 8px rgba(110,231,249,0.08);
+      box-shadow: 0 0 0 8px rgba(var(--accent-rgb), 0.08);
     }
 
     .timeline-item ul {
@@ -741,6 +754,181 @@
       font-weight: 600;
     }
 
+    .award-callouts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .award-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: rgba(var(--accent-rgb), 0.10);
+      border: 1px solid rgba(var(--accent-rgb), 0.20);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .award-callout:hover,
+    .award-callout:focus-visible {
+      color: var(--text);
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: rgba(var(--accent-rgb), 0.34);
+    }
+
+    html[data-theme="light"] .award-callout {
+      color: #0f172a;
+      background: rgba(var(--accent-rgb), 0.08);
+      border-color: rgba(var(--accent-rgb), 0.16);
+    }
+
+    .award-callout[id] {
+      scroll-margin-top: calc(var(--nav-offset) + 28px);
+    }
+
+    /* Pill clicks should land on the exact card title, which keeps stacked mobile cards in view. */
+    .award-card h3[id],
+    .certification-card h3[id] {
+      scroll-margin-top: calc(var(--nav-offset) + 28px);
+    }
+
+    .award-card.is-card-selected,
+    .certification-card.is-card-selected {
+      border-color: rgba(var(--accent-rgb), 0.55);
+      box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0.14), 0 14px 35px rgba(0,0,0,0.18);
+    }
+
+    .award-card.is-card-selected h3[id],
+    .certification-card.is-card-selected h3[id] {
+      color: var(--accent);
+    }
+
+    .award-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+    }
+
+    .award-card p {
+      margin-bottom: 0;
+    }
+
+    .award-context-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      max-width: 100%;
+      margin-top: auto;
+      padding-top: 18px;
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.35;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    .award-context-link::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      flex: 0 0 auto;
+      background: rgba(var(--accent-rgb), 0.55);
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+
+    .award-context-link::after {
+      content: '→';
+      font-size: 1rem;
+      transform: translateY(-1px);
+      transition: transform 0.25s ease;
+    }
+
+    .award-context-link:hover,
+    .award-context-link:focus-visible {
+      color: var(--text);
+      transform: translateX(2px);
+    }
+
+    .award-context-link:hover::before,
+    .award-context-link:focus-visible::before {
+      width: 36px;
+      background: var(--accent);
+    }
+
+    .award-context-link:hover::after,
+    .award-context-link:focus-visible::after {
+      transform: translate(3px, -1px);
+    }
+
+    .award-callout:target {
+      border-color: rgba(var(--accent-rgb), 0.55);
+      box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0.14), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+
+    .credential-callouts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    /* Certification pills intentionally mirror the award pills for consistent timeline affordance. */
+    .credential-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: rgba(var(--accent-rgb), 0.10);
+      border: 1px solid rgba(var(--accent-rgb), 0.20);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .credential-pill:hover,
+    .credential-pill:focus-visible {
+      color: var(--text);
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: rgba(var(--accent-rgb), 0.34);
+    }
+
+    html[data-theme="light"] .credential-pill {
+      color: #0f172a;
+      background: rgba(var(--accent-rgb), 0.08);
+      border-color: rgba(var(--accent-rgb), 0.16);
+    }
+
+    .credential-pill[id],
+    .certification-card[id] {
+      scroll-margin-top: calc(var(--nav-offset) + 28px);
+    }
+
+    .credential-pill:target {
+      border-color: rgba(var(--accent-rgb), 0.55);
+      box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0.14), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+
+    .certification-card .award-context-link {
+      margin-top: 16px;
+      padding-top: 0;
+    }
+
     .certification-card {
       display: grid;
       grid-template-columns: 160px 1fr;
@@ -748,15 +936,7 @@
       gap: 24px;
       padding: 30px;
       border-radius: 28px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: 0 14px 35px rgba(0,0,0,0.18);
       backdrop-filter: blur(14px);
-      transition: 0.35s ease;
-    }
-
-    .certification-card:hover {
-      box-shadow: 0 20px 48px rgba(0,0,0,0.22);
     }
 
     .certification-card img {
@@ -792,7 +972,7 @@
       padding: 70px 30px;
       border-radius: 40px;
       text-align: center;
-      background: linear-gradient(145deg, rgba(139,92,246,0.14), rgba(110,231,249,0.08));
+      background: linear-gradient(145deg, rgba(var(--accent2-rgb), 0.14), rgba(var(--accent-rgb), 0.08));
       border: 1px solid rgba(255,255,255,0.08);
     }
 
@@ -821,7 +1001,7 @@
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: 0.3s ease;
+      transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.25s ease, border-color 0.25s ease;
     }
 
     .btn-primary {
@@ -830,23 +1010,14 @@
       box-shadow: var(--shadow);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-4px);
-    }
-
     .btn-secondary {
       color: #ffffff;
       background: rgba(255,255,255,0.03);
       border-color: rgba(255,255,255,0.12);
     }
 
-    .btn-secondary:hover {
-      transform: translateY(-3px);
-      border-color: rgba(110,231,249,0.35);
-    }
-
     .theme-toggle[aria-pressed="true"] {
-      border-color: rgba(110,231,249,0.48);
+      border-color: rgba(var(--accent-rgb), 0.48);
     }
 
     footer {
@@ -875,17 +1046,13 @@
       opacity: 0;
       pointer-events: none;
       transform: translateY(12px);
-      transition: 0.3s ease;
+      transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease;
     }
 
     .back-to-top.show {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
-    }
-
-    .back-to-top:hover {
-      transform: translateY(-4px);
     }
 
     html[data-theme="light"] .tag,
@@ -921,7 +1088,7 @@
 
     html[data-theme="light"] .pill {
       color: #0369a1;
-      background: rgba(2,132,199,0.10);
+      background: rgba(var(--accent-rgb), 0.10);
     }
 
     html[data-theme="light"] .btn-primary,
@@ -934,7 +1101,7 @@
     }
 
     html[data-theme="light"] .contact-box {
-      background: linear-gradient(145deg, rgba(124,58,237,0.10), rgba(2,132,199,0.08));
+      background: linear-gradient(145deg, rgba(var(--accent2-rgb), 0.10), rgba(var(--accent-rgb), 0.08));
       border-color: rgba(15,23,42,0.10);
       box-shadow: var(--shadow);
     }
@@ -943,11 +1110,69 @@
       background: rgba(15,23,42,0.12);
     }
 
-    html[data-theme="light"] .card:hover,
-    html[data-theme="light"] .project-card:hover,
-    html[data-theme="light"] .certification-card:hover {
-      border-color: rgba(2,132,199,0.24);
-      box-shadow: 0 20px 48px rgba(15,23,42,0.13);
+
+
+    /* Card-grid rhythm: keep About, Skills, Education, and Certifications consistent.
+       auto-fit avoids the empty-column/narrow-card issue caused by auto-fill. */
+    .skills-grid,
+    .certifications-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: none;
+      align-items: stretch;
+    }
+
+
+
+    @media (min-width: 1100px) {
+      .four-card-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .education-grid {
+      max-width: none;
+    }
+
+    .education-card {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .certifications-grid {
+      justify-content: stretch;
+    }
+
+    .certification-card {
+      grid-template-columns: clamp(96px, 18%, 128px) minmax(0, 1fr);
+      align-items: center;
+      min-height: 180px;
+      gap: 24px;
+      padding: 30px;
+    }
+
+    .certification-card img {
+      justify-self: center;
+      width: 112px;
+    }
+
+    .certification-card h3,
+    .certification-card p {
+      max-width: none;
+    }
+
+    @media (max-width: 520px) {
+      .certification-card {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+      }
+
+      .certification-card img {
+        justify-self: start;
+      }
     }
 
     @media (max-width: 1100px) {
@@ -1142,7 +1367,6 @@
         border-radius: 24px;
       }
 
-
       .certification-card h3 {
         margin-bottom: 8px;
         font-size: clamp(1.05rem, 4.8vw, 1.25rem);
@@ -1180,7 +1404,6 @@
         grid-template-columns: 1fr;
         align-items: flex-start;
       }
-
     }
 
     @media (max-width: 520px) {
@@ -1220,37 +1443,29 @@
 <nav aria-label="Primary navigation">
 <div class="container nav-inner">
 <a aria-label="Satish Bonagiri home" class="logo logo-link" href="#home"><span class="logo-code">&lt;satish /&gt;</span></a>
-<div class="nav-links">
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#experience">Experience</a>
-<a href="#awards">Awards</a>
-<a href="#projects">Projects</a>
-<a href="#certifications">Certifications</a>
-<a href="#education">Education</a>
-<a href="#contact">Contact</a>
-</div>
+<div class="nav-links"><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#education">Education</a><a href="#contact">Contact</a></div>
 <div class="nav-actions">
-<button aria-label="Switch to light theme" aria-pressed="false" class="theme-chip theme-toggle" type="button">☀️ <span>Light Theme</span></button>
+<button aria-label="Toggle light and dark themes" aria-pressed="false" class="theme-chip theme-toggle" type="button">☀️ <span>Light Theme</span></button>
 <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="mobile-menu-btn" type="button">
 <span aria-hidden="true" class="mobile-menu-icon"><span></span></span>
-<span class="sr-only">Toggle navigation menu</span></button>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
 </div>
 <div aria-hidden="true" class="mobile-nav" id="mobile-nav" inert="">
-<div class="mobile-nav-inner">
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#experience">Experience</a>
-<a href="#awards">Awards</a>
-<a href="#projects">Projects</a>
-<a href="#certifications">Certifications</a>
-<a href="#education">Education</a>
-<a href="#contact">Contact</a>
-</div>
+<div class="mobile-nav-inner"></div>
 </div>
 </div>
 </nav>
 <main id="main">
+
+
+
+
+
+
+
+
+
 <section aria-labelledby="home-title" class="hero" id="home">
 <div class="container hero-grid">
 <div>
@@ -1271,54 +1486,38 @@
 </div>
 </div>
 </div>
-</section>
-<section aria-labelledby="about-title" id="about">
+</section><section aria-labelledby="about-title" id="about">
 <div class="container">
 <h2 class="section-title" id="about-title">About Me</h2>
 <div class="about-copy">
-<p>
-          I’m Satish Bonagiri — a Senior Android Engineer, Technical Leader, and M.Tech graduate from IIT Kharagpur with 13+ years of experience building and scaling mobile products across FinTech, Retail, Healthcare, Education, Classifieds, and Wearables.
-        </p>
-<p>
-          Throughout my career, I have transformed ideas into production-ready applications for leading organizations including PayPal, Tesco, Samsung, and Quikr. My work spans the complete product lifecycle — from architecture and technical strategy to implementation, optimization, release, and long-term scalability.
-        </p>
-<p>
-          I specialize in Android architecture, Kotlin, Java, Jetpack Compose, Wear OS, and modern mobile engineering practices, with a strong focus on performance, usability, maintainability, and business impact.
-        </p>
-<p>
-          Beyond engineering, I mentor teams, establish technical standards, conduct design reviews, and collaborate closely with Product, UX, and Analytics stakeholders. I also leverage AI-powered workflows using Gemini, Claude, and ChatGPT to accelerate delivery, improve code quality, and enhance engineering productivity.
-        </p>
+<p>I’m Satish Bonagiri — a Senior Android Engineer, Technical Leader, and M.Tech graduate from IIT Kharagpur with 13+ years of experience building and scaling mobile products across FinTech, Retail, Healthcare, Education, Classifieds, and Wearables.</p>
+<p>Throughout my career, I have transformed ideas into production-ready applications for leading organizations including PayPal, Tesco, Samsung, and Quikr. My work spans the complete product lifecycle — from architecture and technical strategy to implementation, optimization, release, and long-term scalability.</p>
+<p>I specialize in Android architecture, Kotlin, Java, Jetpack Compose, Wear OS, and modern mobile engineering practices, with a strong focus on performance, usability, maintainability, and business impact.</p>
+<p>Beyond engineering, I mentor teams, establish technical standards, conduct design reviews, and collaborate closely with Product, UX, and Analytics stakeholders. I also leverage AI-powered workflows using Gemini, Claude, and ChatGPT to accelerate delivery, improve code quality, and enhance engineering productivity.</p>
 </div>
 <div class="skills-grid">
-<div class="card"><h3>Android Product Delivery</h3>
-<p>Proven ability to take mobile products from ideation and feasibility validation through architecture, implementation, release, and long-term maintainability.</p></div>
-<div class="card"><h3>Technical Leadership</h3>
-<p>Led design reviews, daily technical discussions, code quality practices, and mentoring initiatives while collaborating with Product, UX/UI, and Analytics teams.</p></div>
-<div class="card"><h3>Global Domain Exposure</h3>
-<p>Delivered Android solutions across Finance, E-commerce, Healthcare, Education, Retail, Classifieds, Wearables, and Enterprise ecosystems.</p></div>
+<div class="card">
+<h3>Android Product Delivery</h3>
+<p>Proven ability to take mobile products from ideation and feasibility validation through architecture, implementation, release, and long-term maintainability.</p>
+</div>
+<div class="card">
+<h3>Technical Leadership</h3>
+<p>Led design reviews, daily technical discussions, code quality practices, and mentoring initiatives while collaborating with Product, UX/UI, and Analytics teams.</p>
+</div>
+<div class="card">
+<h3>Global Domain Exposure</h3>
+<p>Delivered Android solutions across Finance, E-commerce, Healthcare, Education, Retail, Classifieds, Wearables, and Enterprise ecosystems.</p>
 </div>
 </div>
-</section>
-<section aria-labelledby="skills-title" id="skills">
-<div class="container">
-<h2 class="section-title" id="skills-title">Core Expertise</h2>
-<p class="section-subtitle">Technical skills shaped by 13+ years of Android product engineering across startups, product companies, and multinational organizations.</p>
-<div class="skills-grid">
-<div class="card"><h3>Languages &amp; Platforms</h3><p>Java, Kotlin, C, Android SDK v2.1–14+, Jetpack Compose, and Wear OS.</p></div>
-<div class="card"><h3>Architecture &amp; Storage</h3><p>Android architecture, MVVM, REST APIs, Retrofit, JSON, SQLite, Realm, modular design, performance optimization, and scalable mobile systems.</p></div>
-<div class="card"><h3>Testing &amp; Quality</h3><p>JUnit 4, Mockito, MockK, Espresso, Compose Testing Library, and JaCoCo for coverage-driven maintainability.</p></div>
-<div class="card"><h3>Tools, Analytics &amp; Delivery</h3><p>Android Studio, Eclipse, Git, GitHub, JIRA, Gradle, CI/CD, Google Pay, Leanplum, Adobe Analytics, Firebase Analytics, Amplitude, and Looker.</p></div>
 </div>
-</div>
-</section>
-<section aria-labelledby="experience-title" id="experience">
+</section><section aria-labelledby="experience-title" id="experience">
 <div class="container">
 <h2 class="section-title" id="experience-title">Professional Journey</h2>
 <p class="section-subtitle">Compact overview of leadership and engineering roles across startups, global product companies, and enterprise technology organizations.</p>
 <div class="timeline">
 <div class="timeline-item">
 <h3>Member of Technical Staff I (MTS I)</h3>
-<span class="company">Mento (Startup) • Jun 2023 – Present</span>
+<span class="company">Mento (Startup) • <time datetime="2023-06">Jun 2023</time> – Present</span>
 <ul>
 <li>Architected and developed a high-performance Android memory game featuring fluid UI transitions and custom animations.</li>
 <li>Implemented Solo mode, local head-to-head multiplayer, and an intelligent “Buddy” opponent that simulates human-like memory behavior.</li>
@@ -1328,7 +1527,11 @@
 </div>
 <div class="timeline-item">
 <h3>Member of Technical Staff I (MTS I)</h3>
-<span class="company">PayPal Bengaluru • Sep 2019 – May 2023</span>
+<span class="company">PayPal Bengaluru • <time datetime="2019-09">Sep 2019</time> – <time datetime="2023-05">May 2023</time></span>
+<div aria-label="Awards and recognition. Select an award to view its card." class="award-callouts">
+<a class="award-callout" id="award-spot-paypal" href="#award-card-spot-title">🏆 Spot Award</a>
+<a class="award-callout" id="award-bravo-paypal" href="#award-card-bravo-title">🏆 Bravo Award</a>
+</div>
 <ul>
 <li>Developed Android application features from concept to production release for PayPal’s consumer app (100M+ installs).</li>
 <li>Delivered country-specific features for Brazil, India, Japan, and Mexico markets.</li>
@@ -1338,20 +1541,24 @@
 </div>
 <div class="timeline-item">
 <h3>Software Development Engineer II (SDE II)</h3>
-<span class="company">Tesco Bengaluru • Jun 2017 – Aug 2019</span>
+<span class="company">Tesco Bengaluru • <time datetime="2017-06">Jun 2017</time> – <time datetime="2019-08">Aug 2019</time></span>
+<div aria-label="Awards and recognition. Select an award to view its card." class="award-callouts">
+<a class="award-callout" id="award-star-tesco" href="#award-card-star-title">🏆 Star of the Moment</a>
+<a class="award-callout" id="award-thank-you-tesco" href="#award-card-thank-you-title">🥇 Thank You</a>
+</div>
 <ul>
 <li>Developed Android application features from concept to production release for the standalone Tesco Clubcard application (1M+ downloads), later integrated into the unified Tesco Grocery &amp; Clubcard ecosystem (10M+ downloads).</li>
 <li>Led the design and development of major application features.</li>
 <li>Improved application stability by reducing the crash rate from 0.3% to 0.1% through systematic optimization.</li>
 <li>Collaborated with Product, UX/UI, and Analytics teams to deliver user-centric features.</li>
 <li>Established daily technical review meetings and mentored junior engineers, fostering a culture of code quality and best practices.</li>
-<li>Awarded "Star of the Moment" for team collaboration and received multiple "Thank You" awards for rapid feature delivery and mentorship.</li>
+<li>Awarded “Star of the Moment” for team collaboration and received multiple “Thank You” awards for rapid feature delivery and mentorship.</li>
 <li>Contributed to Agile/Scrum sprints including backlog grooming, tech debt management, story point estimation, and sprint demos.</li>
 </ul>
 </div>
 <div class="timeline-item">
 <h3>Lead Software Engineer</h3>
-<span class="company">Quikr &amp; Startup Ventures • Aug 2014 – May 2017</span>
+<span class="company">Quikr &amp; Startup Ventures • <time datetime="2014-08">Aug 2014</time> – <time datetime="2017-05">May 2017</time></span>
 <ul>
 <li>Architected and delivered multiple Android applications from concept to production, evaluating ideas and conducting feasibility studies to translate concepts into scalable implementations.</li>
 <li>Quikr App – Led the design and development of the Cars &amp; Bikes classifieds section from scratch; architected and delivered the Shortlist feature, later adopted across the entire Quikr application.</li>
@@ -1360,7 +1567,7 @@
 </div>
 <div class="timeline-item">
 <h3>Technical Lead</h3>
-<span class="company">Samsung (SRI-B) • Dec 2013 – Jul 2014</span>
+<span class="company">Samsung (SRI-B) • <time datetime="2013-12">Dec 2013</time> – <time datetime="2014-07">Jul 2014</time></span>
 <ul>
 <li>Led development of 3 Android Wear applications: Heart Rate, Provider, and Pedometer.</li>
 <li>Optimized the Pedometer application UI/UX and overall performance.</li>
@@ -1370,7 +1577,11 @@
 </div>
 <div class="timeline-item">
 <h3>Software Engineer → Module Lead</h3>
-<span class="company">Early Career Progression • Jun 2008 – Oct 2013</span>
+<span class="company">Early Career Progression • <time datetime="2008-06">Jun 2008</time> – <time datetime="2013-10">Oct 2013</time></span>
+<div aria-label="Certifications earned during early career. Select a certification to view its card." class="credential-callouts">
+<a class="credential-pill" id="cert-pill-java-programmer" href="#cert-java-programmer-title">☕ Sun Certified Java Programmer</a>
+<a class="credential-pill" id="cert-pill-web-component" href="#cert-web-component-title">🌐 Sun Certified Web Component Developer</a>
+</div>
 <ul>
 <li>Mindtree, Capgemini, Teleca, Robosoft Technologies, Wipro Technologies.</li>
 <li>Roles: Progressed from Project Engineer to Module Lead, delivering mobile and tablet applications for global clients including HTC, Carrefour, TimesJobs, and Baxter Healthcare.</li>
@@ -1379,369 +1590,531 @@
 </div>
 </div>
 </div>
-</section>
-<section aria-labelledby="awards-title" id="awards">
+</section><section aria-labelledby="awards-title" id="awards">
 <div class="container">
 <h2 class="section-title" id="awards-title">Awards &amp; Recognition</h2>
 <p class="section-subtitle">Recognition for successful launches, collaboration, mentorship, delivery speed, and engineering impact.</p>
-<div class="skills-grid">
-<div class="card">
-<h3>PayPal Spot Award</h3>
+<div class="skills-grid four-card-grid">
+<div class="card award-card">
+<h3 id="award-card-spot-title">🏆 Spot Award</h3>
 <p>Recognized for contributions to the Brazil PIX initiative and its successful launch.</p>
+<a class="award-context-link" href="#award-spot-paypal" aria-label="Jump to the related PayPal experience for Spot Award">View related experience</a>
 </div>
-<div class="card">
-<h3>PayPal Bravo Award</h3>
+<div class="card award-card">
+<h3 id="award-card-bravo-title">🏆 Bravo Award</h3>
 <p>Awarded for strong team collaboration and cross-functional delivery.</p>
+<a class="award-context-link" href="#award-bravo-paypal" aria-label="Jump to the related PayPal experience for Bravo Award">View related experience</a>
 </div>
-<div class="card">
-<h3>Tesco Star of the Moment</h3>
+<div class="card award-card">
+<h3 id="award-card-star-title">🏆 Star of the Moment</h3>
 <p>Recognized for team collaboration and meaningful contribution to Tesco Android delivery.</p>
+<a class="award-context-link" href="#award-star-tesco" aria-label="Jump to the related Tesco experience for Star of the Moment">View related experience</a>
 </div>
-<div class="card">
-<h3>Tesco Thank You Awards</h3>
+<div class="card award-card">
+<h3 id="award-card-thank-you-title">🥇 Thank You</h3>
 <p>Received multiple awards for rapid feature delivery, mentorship, and engineering support.</p>
+<a class="award-context-link" href="#award-thank-you-tesco" aria-label="Jump to the related Tesco experience for Thank You award">View related experience</a>
 </div>
 </div>
 </div>
-</section>
-<section aria-labelledby="projects-title" id="projects">
+</section><section aria-labelledby="projects-title" id="projects">
 <div class="container">
 <h2 class="section-title" id="projects-title">Featured Projects</h2>
 <p class="section-subtitle">A selection of products and platforms showcasing Android architecture, technical leadership, and large-scale mobile application delivery across multiple domains.</p>
 <div class="project-grid">
-<div class="project-card"><h3>Card Match Game</h3><p>Architected and developed a modern Android memory game using Kotlin and Jetpack Compose. Implemented Solo Mode, Local Multiplayer, and an intelligent "Buddy" opponent, complemented by polished animations, guided onboarding, and a robust automated testing framework.</p><div class="pill">Kotlin</div>
+<div class="project-card">
+<h3>Card Match Game</h3>
+<p>Architected and developed a modern Android memory game using Kotlin and Jetpack Compose. Implemented Solo Mode, Local Multiplayer, and an intelligent "Buddy" opponent, complemented by polished animations, guided onboarding, and a robust automated testing framework.</p>
+<div class="pill">Kotlin</div>
 <div class="pill">Jetpack Compose</div>
 <div class="pill">JUnit 4</div>
 <div class="pill">MockK</div>
-<div class="pill">JaCoCo</div><div class="cta-group" style="margin-top:20px;"><a class="btn btn-secondary" href="https://satish-bonagiri.github.io/CardMatchGame/" rel="noopener" target="_blank">Explore more →</a></div></div>
-<div class="project-card"><h3>PayPal Consumer App</h3><p>Contributed to Android features for PayPal’s consumer application. Delivered country-specific experiences across Brazil, India, Japan, and Mexico while collaborating with Product, UX, and Analytics teams.</p><div class="pill">Kotlin</div>
+<div class="pill">JaCoCo</div>
+<div class="cta-group"><a class="btn btn-secondary" href="https://satish-bonagiri.github.io/CardMatchGame/" rel="noopener" target="_blank">Explore more →</a></div>
+</div>
+<div class="project-card">
+<h3>PayPal Consumer App</h3>
+<p>Contributed to Android features for PayPal’s consumer application. Delivered country-specific experiences across Brazil, India, Japan, and Mexico while collaborating with Product, UX, and Analytics teams.</p>
+<div class="pill">Kotlin</div>
 <div class="pill">Java</div>
 <div class="pill">Android SDK</div>
 <div class="pill">Analytics</div>
-<div class="pill">Global FinTech</div><div class="cta-group" style="margin-top:20px;"><a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile" rel="noopener" target="_blank">View on Play Store →</a></div></div>
-<div class="project-card"><h3>Tesco Clubcard</h3><p>Led Android feature development for Tesco Clubcard. Improved application stability, mentored engineers, and delivered customer-focused retail experiences supporting millions of users.</p><div class="pill">Java</div>
+<div class="pill">Global FinTech</div>
+<div class="cta-group"><a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile" rel="noopener" target="_blank">View on Play Store →</a></div>
+</div>
+<div class="project-card">
+<h3>Tesco Clubcard</h3>
+<p>Led Android feature development for Tesco Clubcard. Improved application stability, mentored engineers, and delivered customer-focused retail experiences supporting millions of users.</p>
+<div class="pill">Java</div>
 <div class="pill">Hilt/Dagger</div>
 <div class="pill">Retrofit</div>
 <div class="pill">Realm</div>
-<div class="pill">Analytics</div><div class="cta-group" style="margin-top:20px;"><a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.tesco.grocery.view" rel="noopener" target="_blank">View on Play Store →</a></div></div>
-<div class="project-card"><h3>Samsung Wear Applications</h3><p>Led development of Android Wear applications for Samsung Gear, including Heart Rate, Provider, and Pedometer solutions. Engineered wearable sensor integrations, performance optimizations, and seamless device connectivity.</p><div class="pill">Java</div>
+<div class="pill">Analytics</div>
+<div class="cta-group"><a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.tesco.grocery.view" rel="noopener" target="_blank">View on Play Store →</a></div>
+</div>
+<div class="project-card">
+<h3>Samsung Wear Applications</h3>
+<p>Led development of Android Wear applications for Samsung Gear, including Heart Rate, Provider, and Pedometer solutions. Engineered wearable sensor integrations, performance optimizations, and seamless device connectivity.</p>
+<div class="pill">Java</div>
 <div class="pill">Android Wear</div>
 <div class="pill">SQLite</div>
-<div class="pill">Sensors</div></div>
-<div class="project-card"><h3>Quikr Cars &amp; Bikes</h3><p>Architected and delivered the Cars &amp; Bikes marketplace experience for Quikr. Designed and implemented the Shortlist feature, later adopted across the broader platform to improve user engagement and discovery.</p><div class="pill">Android Studio</div>
+<div class="pill">Sensors</div>
+</div>
+<div class="project-card">
+<h3>Quikr Cars &amp; Bikes</h3>
+<p>Architected and delivered the Cars &amp; Bikes marketplace experience for Quikr. Designed and implemented the Shortlist feature, later adopted across the broader platform to improve user engagement and discovery.</p>
+<div class="pill">Android Studio</div>
 <div class="pill">Java</div>
 <div class="pill">SQLite</div>
-<div class="pill">Marketplace</div><div class="cta-group" style="margin-top:20px;"><a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.quikr" rel="noopener" target="_blank">View on Play Store →</a></div></div>
-<div class="project-card"><h3>Early Career Portfolio</h3><p>Delivered Android, tablet, and enterprise applications for organizations including HTC, Carrefour, TimesJobs, and Baxter Healthcare. Built solutions across retail, healthcare, education, and related domains.</p><div class="pill">Android</div>
+<div class="pill">Marketplace</div>
+<div class="cta-group"><a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.quikr" rel="noopener" target="_blank">View on Play Store →</a></div>
+</div>
+<div class="project-card">
+<h3>Early Career Portfolio</h3>
+<p>Delivered Android, tablet, and enterprise applications for organizations including HTC, Carrefour, TimesJobs, and Baxter Healthcare. Built solutions across retail, healthcare, education, and related domains.</p>
+<div class="pill">Android</div>
 <div class="pill">Brew MP</div>
 <div class="pill">Healthcare</div>
-<div class="pill">E-commerce</div></div>
+<div class="pill">E-commerce</div>
 </div>
 </div>
-</section>
-<section aria-labelledby="certifications-title" class="certifications-section" id="certifications">
+</div>
+</section><section aria-labelledby="skills-title" id="skills">
+<div class="container">
+<h2 class="section-title" id="skills-title">Core Expertise</h2>
+<p class="section-subtitle">Technical skills shaped by 13+ years of Android product engineering across startups, product companies, and multinational organizations.</p>
+<div class="skills-grid four-card-grid">
+<div class="card"><h3>Languages &amp; Platforms</h3><p>Java, Kotlin, C, Android SDK v2.1–14+, Jetpack Compose, and Wear OS.</p></div>
+<div class="card"><h3>Architecture &amp; Storage</h3><p>Android architecture, MVVM, REST APIs, Retrofit, JSON, SQLite, Realm, modular design, performance optimization, and scalable mobile systems.</p></div>
+<div class="card"><h3>Testing &amp; Quality</h3><p>JUnit 4, Mockito, MockK, Espresso, Compose Testing Library, and JaCoCo for coverage-driven maintainability.</p></div>
+<div class="card"><h3>Tools, Analytics &amp; Delivery</h3><p>Android Studio, Eclipse, Git, GitHub, JIRA, Gradle, CI/CD, Google Pay, Leanplum, Adobe Analytics, Firebase Analytics, Amplitude, and Looker.</p></div>
+</div>
+</div>
+</section><section aria-labelledby="education-title" id="education">
+<div class="container">
+<h2 class="section-title" id="education-title">Education</h2>
+<p class="section-subtitle">Strong computer science foundation supporting deep mobile engineering and technical leadership.</p>
+<div class="skills-grid education-grid">
+<div class="card education-card"><h3>M.Tech. Computer Science</h3><p>IIT Kharagpur • CGPA: 6.9/10</p></div>
+<div class="card education-card"><h3>M.Sc. Computer Science</h3><p>S.V. University • 77.3%</p></div>
+</div>
+</div>
+</section><section aria-labelledby="certifications-title" class="certifications-section" id="certifications">
 <div class="container">
 <h2 class="section-title" id="certifications-title">Certifications</h2>
-<p class="section-subtitle">
-        Industry-standard Java certifications from Sun Microsystems.
-      </p>
+<p class="section-subtitle">Industry-standard Java certifications from Sun Microsystems.</p>
 <div class="certifications-grid">
-<div class="certification-card">
+<div class="certification-card" id="cert-java-programmer">
 <img alt="Sun Certified Java Programmer" decoding="async" height="67" loading="lazy" src="assets/sun-java-programmer.png" width="96"/>
 <div>
-<h3>Sun Certified Java Programmer</h3>
+<h3 id="cert-java-programmer-title">Sun Certified Java Programmer</h3>
 <h4>Sun Microsystems</h4>
 <p>Core Java Programming · Industry Standard Certification</p>
+<a class="award-context-link" href="#cert-pill-java-programmer" aria-label="Jump to the related early career experience for Sun Certified Java Programmer">View related experience</a>
 </div>
 </div>
-<div class="certification-card">
+<div class="certification-card" id="cert-web-component">
 <img alt="Sun Certified Web Component Developer" decoding="async" height="67" loading="lazy" src="assets/sun-web-component-developer.png" width="96"/>
 <div>
-<h3>Sun Certified Web Component Developer</h3>
+<h3 id="cert-web-component-title">Sun Certified Web Component Developer</h3>
 <h4>Sun Microsystems</h4>
 <p>Java EE / Servlet &amp; JSP · Industry Standard Certification</p>
+<a class="award-context-link" href="#cert-pill-web-component" aria-label="Jump to the related early career experience for Sun Certified Web Component Developer">View related experience</a>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section aria-labelledby="education-title" id="education"><div class="container"><h2 class="section-title" id="education-title">Education</h2><p class="section-subtitle">Strong computer science foundation supporting deep mobile engineering and technical leadership.</p><div class="skills-grid"><div class="card"><h3>M.Tech. Computer Science</h3><p>IIT Kharagpur • CGPA: 6.9/10</p></div><div class="card"><h3>M.Sc. Computer Science</h3><p>S.V. University • 77.3%</p></div></div></div></section>
-<section aria-labelledby="contact-title" id="contact"><div class="container"><div class="contact-box"><h2 id="contact-title">Let's Connect</h2><p>I'm always interested in hearing about new projects and opportunities.</p><div class="cta-group" style="justify-content:center;"><a aria-label="Email Satish Bonagiri at satish_mtech@yahoo.com" class="btn btn-primary" href="mailto:satish_mtech@yahoo.com">satish_mtech@yahoo.com</a></div></div></div></section>
-</main>
+</section><section aria-labelledby="contact-title" id="contact">
+<div class="container">
+<div class="contact-box">
+<h2 id="contact-title">Let's Connect</h2>
+<p>I'm always interested in hearing about new projects and opportunities.</p>
+<div class="cta-group" style="justify-content:center;">
+<a aria-label="Email Satish Bonagiri at satish_mtech@yahoo.com" class="btn btn-primary" href="mailto:satish_mtech@yahoo.com">satish_mtech@yahoo.com</a>
+</div>
+</div>
+</div>
+</section></main>
 <a aria-label="Back to top" class="back-to-top" href="#home">↑</a>
 <footer>Crafted with elegance, clarity, and modern UI aesthetics • © 2026 Satish Bonagiri</footer>
-
-
 <script>
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const backToTop = document.querySelector('.back-to-top');
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const mobileNav = document.querySelector('#mobile-nav');
-const nav = document.querySelector('nav');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav a[href^="#"]');
-const inPageNavAnchors = document.querySelectorAll('nav a[href^="#"]');
-const sectionTargets = document.querySelectorAll('main section[id]');
-let programmaticScrollTarget = null;
-let programmaticScrollTimer = null;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const backToTop = document.querySelector('.back-to-top');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileNav = document.querySelector('#mobile-nav');
+    const mobileInner = document.querySelector('.mobile-nav-inner');
+    const nav = document.querySelector('nav');
+    const desktopLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const sectionTargets = document.querySelectorAll('main section[id]');
+    let programmaticScrollTarget = null;
+    let programmaticScrollTimer = null;
 
-function forEachNode(nodes, callback) {
-  for (let i = 0; i < nodes.length; i += 1) {
-    callback(nodes[i], i);
-  }
-}
-
-function getCurrentTheme() {
-  return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-}
-
-function getStoredTheme() {
-  try {
-    return window.localStorage.getItem('theme');
-  } catch (error) {
-    return null;
-  }
-}
-
-function storeTheme(theme) {
-  try {
-    window.localStorage.setItem('theme', theme);
-  } catch (error) {
-    // Storage may be unavailable in some mobile browser privacy modes.
-  }
-}
-
-function updateThemeToggleState() {
-  const isLight = getCurrentTheme() === 'light';
-  forEachNode(document.querySelectorAll('.theme-toggle'), button => {
-    button.setAttribute('aria-pressed', String(isLight));
-    button.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
-    button.innerHTML = isLight ? '🌙 <span>Dark Theme</span>' : '☀️ <span>Light Theme</span>';
-  });
-}
-
-function setTheme(theme) {
-  const nextTheme = theme === 'light' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', nextTheme);
-  storeTheme(nextTheme);
-  updateThemeToggleState();
-}
-
-function toggleTheme() {
-  setTheme(getCurrentTheme() === 'light' ? 'dark' : 'light');
-}
-
-function closeMobileMenu(options = {}) {
-  if (!mobileMenuBtn || !mobileNav) return;
-
-  const wasOpen = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-
-  mobileMenuBtn.setAttribute('aria-expanded', 'false');
-  mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-  mobileNav.classList.add('is-closing');
-  mobileNav.classList.remove('open');
-  document.body.classList.remove('mobile-menu-open');
-
-  const finishClose = () => {
-    mobileNav.classList.remove('is-closing');
-    mobileNav.setAttribute('aria-hidden', 'true');
-    mobileNav.inert = true;
-
-    if (options.restoreFocus) {
-      mobileMenuBtn.focus({ preventScroll: true });
+    // Maintain a Single Source of Truth for links to ensure code is DRY
+    if (mobileInner && desktopLinks.length > 0) {
+      desktopLinks.forEach(link => {
+        const clonedLink = link.cloneNode(true);
+        mobileInner.appendChild(clonedLink);
+      });
     }
-  };
+    
+    // Select nav links now that replication cycle completed natively
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav a[href^="#"]');
 
-  if (options.waitForTransition && wasOpen && !prefersReducedMotion.matches) {
-    const fallback = window.setTimeout(finishClose, 380);
-    mobileNav.addEventListener('transitionend', event => {
-      if (event.target !== mobileNav || event.propertyName !== 'grid-template-rows') return;
-      window.clearTimeout(fallback);
-      finishClose();
-    }, { once: true });
-  } else {
-    finishClose();
-  }
-}
-
-function openMobileMenu() {
-  if (!mobileMenuBtn || !mobileNav) return;
-  mobileMenuBtn.setAttribute('aria-expanded', 'true');
-  mobileMenuBtn.setAttribute('aria-label', 'Close menu');
-  mobileNav.classList.remove('is-closing');
-  mobileNav.classList.add('open');
-  mobileNav.setAttribute('aria-hidden', 'false');
-  mobileNav.inert = false;
-  document.body.classList.add('mobile-menu-open');
-
-  const firstMenuItem = mobileNav.querySelector('a, button');
-  if (firstMenuItem) {
-    firstMenuItem.focus({ preventScroll: true });
-  }
-}
-
-function scrollToSection(hash) {
-  const target = document.querySelector(hash);
-  if (!target) return;
-
-  const offset = (nav ? nav.offsetHeight : 0) + 18;
-  const targetTop = target.getBoundingClientRect().top + window.pageYOffset - offset;
-  const finalTop = Math.max(targetTop, 0);
-
-  programmaticScrollTarget = hash;
-  updateCurrentNav(hash);
-
-  window.scrollTo({
-    top: finalTop,
-    behavior: prefersReducedMotion.matches ? 'auto' : 'smooth'
-  });
-
-  // Use replaceState instead of pushState for in-page section navigation.
-  // This prevents mobile browser Back from stepping through every section click.
-  history.replaceState(null, '', hash);
-
-  window.clearTimeout(programmaticScrollTimer);
-
-  const finishProgrammaticScroll = () => {
-    updateCurrentNav(hash);
-    programmaticScrollTarget = null;
-  };
-
-  if (prefersReducedMotion.matches) {
-    finishProgrammaticScroll();
-  } else {
-    programmaticScrollTimer = window.setTimeout(finishProgrammaticScroll, 900);
-  }
-}
-
-function updateCurrentNav(hash) {
-  forEachNode(navLinks, link => {
-    const isCurrent = link.getAttribute('href') === hash;
-    if (isCurrent) {
-      link.setAttribute('aria-current', 'location');
-    } else {
-      link.removeAttribute('aria-current');
-    }
-  });
-}
-
-forEachNode(document.querySelectorAll('.theme-toggle'), button => {
-  button.addEventListener('click', event => {
-    event.preventDefault();
-    toggleTheme();
-  });
-});
-
-setTheme(getStoredTheme() === 'light' ? 'light' : 'dark');
-updateCurrentNav(window.location.hash || '#home');
-
-if (backToTop) {
-  window.addEventListener('scroll', () => {
-    backToTop.classList.toggle('show', window.scrollY > 500);
-  }, { passive: true });
-
-  backToTop.addEventListener('click', event => {
-    event.preventDefault();
-    scrollToSection('#home');
-  });
-}
-
-forEachNode(inPageNavAnchors, link => {
-  link.addEventListener('click', event => {
-    const hash = link.getAttribute('href');
-    if (!hash || !hash.startsWith('#')) return;
-    const target = document.querySelector(hash);
-    if (!target) return;
-
-    event.preventDefault();
-
-    if (mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
-      closeMobileMenu();
+    function getCurrentTheme() {
+      return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
     }
 
-    scrollToSection(hash);
-  });
-});
-
-if (mobileMenuBtn && mobileNav) {
-  mobileMenuBtn.addEventListener('click', event => {
-    event.stopPropagation();
-    const isOpen = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-    isOpen ? closeMobileMenu({ restoreFocus: true }) : openMobileMenu();
-  });
-
-  mobileNav.addEventListener('click', event => {
-    event.stopPropagation();
-  });
-
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
-      closeMobileMenu({ restoreFocus: true });
-    }
-  });
-
-  document.addEventListener('click', event => {
-    const isOpen = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-    if (!isOpen) return;
-    if (!mobileNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
-      closeMobileMenu();
-    }
-  });
-
-  const layoutQuery = window.matchMedia('(min-width: 901px)');
-
-  function handleLayoutShift(event) {
-    if (event.matches) {
-      closeMobileMenu();
-    }
-  }
-
-  try {
-    layoutQuery.addEventListener('change', handleLayoutShift);
-  } catch (error) {
-    layoutQuery.addListener(handleLayoutShift);
-  }
-}
-
-
-window.addEventListener('scroll', () => {
-  if (!programmaticScrollTarget) return;
-
-  window.clearTimeout(programmaticScrollTimer);
-  programmaticScrollTimer = window.setTimeout(() => {
-    updateCurrentNav(programmaticScrollTarget);
-    programmaticScrollTarget = null;
-  }, 140);
-}, { passive: true });
-
-if ('onscrollend' in window) {
-  window.addEventListener('scrollend', () => {
-    if (!programmaticScrollTarget) return;
-    updateCurrentNav(programmaticScrollTarget);
-    programmaticScrollTarget = null;
-    window.clearTimeout(programmaticScrollTimer);
-  });
-}
-
-if ('IntersectionObserver' in window && sectionTargets.length) {
-  const observer = new IntersectionObserver(entries => {
-    if (programmaticScrollTarget) {
-      updateCurrentNav(programmaticScrollTarget);
-      return;
+    function getStoredTheme() {
+      try {
+        return window.localStorage.getItem('theme');
+      } catch (error) {
+        return null;
+      }
     }
 
-    const visible = entries
-      .filter(entry => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-    if (visible) {
-      updateCurrentNav(`#${visible.target.id}`);
+    function storeTheme(theme) {
+      try {
+        window.localStorage.setItem('theme', theme);
+      } catch (error) {
+        // Safe context handling for sandboxed local restriction sets
+      }
     }
-  }, {
-    rootMargin: '-20% 0px -40% 0px',
-    threshold: [0.0, 0.1, 0.25, 0.5, 0.75, 1.0]
-  });
 
-  forEachNode(sectionTargets, section => observer.observe(section));
-}
-</script></body>
+    function updateThemeToggleState() {
+      const isLight = getCurrentTheme() === 'light';
+      document.querySelectorAll('.theme-toggle').forEach(button => {
+        button.setAttribute('aria-pressed', String(isLight));
+        button.setAttribute('aria-label', 'Toggle light and dark themes');
+        button.innerHTML = isLight ? '🌙 <span>Dark Theme</span>' : '☀️ <span>Light Theme</span>';
+      });
+    }
+
+    function setTheme(theme) {
+      const nextTheme = theme === 'light' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      storeTheme(nextTheme);
+      updateThemeToggleState();
+    }
+
+    function toggleTheme() {
+      setTheme(getCurrentTheme() === 'light' ? 'dark' : 'light');
+    }
+
+    function closeMobileMenu(options = {}) {
+      if (!mobileMenuBtn || !mobileNav) return;
+
+      const wasOpen = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      mobileMenuBtn.setAttribute('aria-label', 'Open menu');
+      mobileNav.classList.add('is-closing');
+      mobileNav.classList.remove('open');
+      document.body.classList.remove('mobile-menu-open');
+
+      const finishClose = () => {
+        mobileNav.classList.remove('is-closing');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        mobileNav.inert = true;
+
+        if (options.restoreFocus) {
+          mobileMenuBtn.focus({ preventScroll: true });
+        }
+      };
+
+      if (options.waitForTransition && wasOpen && !prefersReducedMotion.matches) {
+        const fallback = window.setTimeout(finishClose, 380);
+        mobileNav.addEventListener('transitionend', event => {
+          if (event.target !== mobileNav || event.propertyName !== 'grid-template-rows') return;
+          window.clearTimeout(fallback);
+          finishClose();
+        }, { once: true });
+      } else {
+        finishClose();
+      }
+    }
+
+    function openMobileMenu() {
+      if (!mobileMenuBtn || !mobileNav) return;
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      mobileMenuBtn.setAttribute('aria-label', 'Close menu');
+      mobileNav.classList.remove('is-closing');
+      mobileNav.classList.add('open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      mobileNav.inert = false;
+      document.body.classList.add('mobile-menu-open');
+
+      const firstMenuItem = mobileNav.querySelector('a, button');
+      if (firstMenuItem) {
+        firstMenuItem.focus({ preventScroll: true });
+      }
+    }
+
+    function scrollToSection(hash) {
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      programmaticScrollTarget = hash;
+      updateCurrentNav(hash);
+      markCardSelectedFromTarget(target);
+
+      target.scrollIntoView({
+        behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+        block: 'start'
+      });
+
+      history.replaceState(null, '', hash);
+      window.clearTimeout(programmaticScrollTimer);
+
+      const finishProgrammaticScroll = () => {
+        updateCurrentNav(hash);
+        programmaticScrollTarget = null;
+      };
+
+      if (prefersReducedMotion.matches) {
+        finishProgrammaticScroll();
+      } else {
+        programmaticScrollTimer = window.setTimeout(finishProgrammaticScroll, 450);
+      }
+    }
+
+
+    function clearCardSelectedState() {
+      document.querySelectorAll('.award-card.is-card-selected, .certification-card.is-card-selected').forEach(card => {
+        card.classList.remove('is-card-selected');
+      });
+    }
+
+    function markCardSelectedFromTarget(target) {
+      clearCardSelectedState();
+
+      const card = target.closest('.award-card, .certification-card');
+      if (card && target.matches('h3[id]')) {
+        card.classList.add('is-card-selected');
+      }
+    }
+
+    function clearTargetState() {
+      // Remove URL target state and any JS-driven card selection so award and
+      // certification titles return to their normal color when navigating back.
+      clearCardSelectedState();
+      const cleanUrl = `${window.location.pathname}${window.location.search}`;
+      history.replaceState(null, '', cleanUrl);
+    }
+
+    function scrollToRelatedExperiencePill(hash) {
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      clearTargetState();
+
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+
+      programmaticScrollTarget = '#experience';
+      updateCurrentNav('#experience');
+
+      // Wait one frame so the browser clears the previous :target styling before scrolling.
+      window.requestAnimationFrame(() => {
+        target.scrollIntoView({
+          behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+          block: 'start'
+        });
+      });
+
+      window.clearTimeout(programmaticScrollTimer);
+
+      const finishProgrammaticScroll = () => {
+        updateCurrentNav('#experience');
+        programmaticScrollTarget = null;
+        clearTargetState();
+      };
+
+      if (prefersReducedMotion.matches) {
+        finishProgrammaticScroll();
+      } else {
+        programmaticScrollTimer = window.setTimeout(finishProgrammaticScroll, 450);
+      }
+    }
+
+    function updateCurrentNav(hash) {
+      navLinks.forEach(link => {
+        const isCurrent = link.getAttribute('href') === hash;
+        if (isCurrent) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    document.querySelectorAll('.theme-toggle').forEach(button => {
+      button.addEventListener('click', event => {
+        event.preventDefault();
+        toggleTheme();
+      });
+    });
+
+    setTheme(getStoredTheme() === 'light' ? 'light' : 'dark');
+    updateCurrentNav(window.location.hash || '#home');
+
+    // Throttled High-Velocity Scroll Event Pipeline (Eliminating Frame Drops)
+    if (backToTop) {
+      let scrollTicking = false;
+      window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+          window.requestAnimationFrame(() => {
+            backToTop.classList.toggle('show', window.scrollY > 500);
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      }, { passive: true });
+
+      backToTop.addEventListener('click', event => {
+        event.preventDefault();
+        scrollToSection('#home');
+      });
+    }
+
+    function handleInPageNavClick(link, event) {
+      const hash = link.getAttribute('href');
+      if (!hash || !hash.startsWith('#')) return;
+
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      event.preventDefault();
+
+      if (mobileMenuBtn && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
+        closeMobileMenu();
+      }
+
+      scrollToSection(hash);
+    }
+
+
+    // Award and certification pills live inside the Experience timeline, not the top nav.
+    // Handle them explicitly so selecting a pill scrolls to the exact card title and
+    // applies the visible card-selected state on mobile and desktop.
+    document.querySelectorAll('.award-callout[href^="#"], .credential-pill[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const hash = link.getAttribute('href');
+        if (!hash || !hash.startsWith('#')) return;
+
+        const target = document.querySelector(hash);
+        if (!target) return;
+
+        event.preventDefault();
+        scrollToSection(hash);
+      });
+    });
+
+    document.querySelectorAll('.award-context-link[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const hash = link.getAttribute('href');
+        if (!hash || !hash.startsWith('#')) return;
+
+        const target = document.querySelector(hash);
+        if (!target) return;
+
+        event.preventDefault();
+        scrollToRelatedExperiencePill(hash);
+      });
+    });
+
+    if (nav) {
+      nav.addEventListener('click', event => {
+        const link = event.target.closest('a[href^="#"]');
+        if (!link || !nav.contains(link)) return;
+        handleInPageNavClick(link, event);
+      });
+    }
+
+    if (mobileMenuBtn && mobileNav) {
+      mobileMenuBtn.addEventListener('click', event => {
+        event.stopPropagation();
+        const isOpen = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        isOpen ? closeMobileMenu({ restoreFocus: true }) : openMobileMenu();
+      });
+
+      mobileNav.addEventListener('click', event => {
+        event.stopPropagation();
+
+        const link = event.target.closest('a[href^="#"]');
+        if (link && mobileNav.contains(link)) {
+          handleInPageNavClick(link, event);
+        }
+      });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && mobileMenuBtn.getAttribute('aria-expanded') === 'true') {
+          closeMobileMenu({ restoreFocus: true });
+        }
+      });
+
+      document.addEventListener('click', event => {
+        const isOpen = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        if (!isOpen) return;
+        if (!mobileNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+          closeMobileMenu();
+        }
+      });
+
+      const layoutQuery = window.matchMedia('(min-width: 901px)');
+      function handleLayoutShift(event) {
+        if (event.matches) {
+          closeMobileMenu();
+        }
+      }
+
+      try {
+        layoutQuery.addEventListener('change', handleLayoutShift);
+      } catch (error) {
+        layoutQuery.addListener(handleLayoutShift);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!programmaticScrollTarget) return;
+
+      window.clearTimeout(programmaticScrollTimer);
+      programmaticScrollTimer = window.setTimeout(() => {
+        updateCurrentNav(programmaticScrollTarget);
+        programmaticScrollTarget = null;
+      }, 140);
+    }, { passive: true });
+
+    if ('onscrollend' in window) {
+      window.addEventListener('scrollend', () => {
+        if (!programmaticScrollTarget) return;
+        updateCurrentNav(programmaticScrollTarget);
+        programmaticScrollTarget = null;
+        window.clearTimeout(programmaticScrollTimer);
+      });
+    }
+
+    if ('IntersectionObserver' in window && sectionTargets.length) {
+      const observer = new IntersectionObserver(entries => {
+        if (programmaticScrollTarget) {
+          updateCurrentNav(programmaticScrollTarget);
+          return;
+        }
+
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible) {
+          updateCurrentNav(`#${visible.target.id}`);
+        }
+      }, {
+        rootMargin: '-20% 0px -40% 0px',
+        threshold: [0.0, 0.1, 0.25, 0.5, 0.75, 1.0]
+      });
+
+      sectionTargets.forEach(section => observer.observe(section));
+    }
+  </script>
+</body>
 </html>
