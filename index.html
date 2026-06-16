@@ -1529,8 +1529,8 @@
 <h3>Member of Technical Staff I (MTS I)</h3>
 <span class="company">PayPal Bengaluru • <time datetime="2019-09">Sep 2019</time> – <time datetime="2023-05">May 2023</time></span>
 <div aria-label="Awards and recognition. Select an award to view its card." class="award-callouts">
-<a class="award-callout" id="award-spot-paypal" href="#award-card-spot-title">🏆 Spot Award</a>
-<a class="award-callout" id="award-bravo-paypal" href="#award-card-bravo-title">🏆 Bravo Award</a>
+<a class="award-callout" id="award-spot-paypal" href="#award-card-spot-title">Spot Award</a>
+<a class="award-callout" id="award-bravo-paypal" href="#award-card-bravo-title">Bravo Award</a>
 </div>
 <ul>
 <li>Developed Android application features from concept to production release for PayPal’s consumer app (100M+ installs).</li>
@@ -1543,8 +1543,8 @@
 <h3>Software Development Engineer II (SDE II)</h3>
 <span class="company">Tesco Bengaluru • <time datetime="2017-06">Jun 2017</time> – <time datetime="2019-08">Aug 2019</time></span>
 <div aria-label="Awards and recognition. Select an award to view its card." class="award-callouts">
-<a class="award-callout" id="award-star-tesco" href="#award-card-star-title">🏆 Star of the Moment</a>
-<a class="award-callout" id="award-thank-you-tesco" href="#award-card-thank-you-title">🥇 Thank You</a>
+<a class="award-callout" id="award-star-tesco" href="#award-card-star-title">Star of the Moment</a>
+<a class="award-callout" id="award-thank-you-tesco" href="#award-card-thank-you-title">Thank You</a>
 </div>
 <ul>
 <li>Developed Android application features from concept to production release for the standalone Tesco Clubcard application (1M+ downloads), later integrated into the unified Tesco Grocery &amp; Clubcard ecosystem (10M+ downloads).</li>
@@ -1730,13 +1730,13 @@
 <h2 id="contact-title">Let's Connect</h2>
 <p>I'm always interested in hearing about new projects and opportunities.</p>
 <div class="cta-group" style="justify-content:center;">
-<a aria-label="Email Satish Bonagiri at satish_mtech@yahoo.com" class="btn btn-primary" href="mailto:satish_mtech@yahoo.com">satish_mtech@yahoo.com</a>
+<a aria-label="Open a new email draft to Satish Bonagiri" class="btn btn-primary email-compose-link" data-email-domain="yahoo.com" data-email-user="satish_mtech" href="#" rel="nofollow">Start an email</a>
 </div>
 </div>
 </div>
 </section></main>
 <a aria-label="Back to top" class="back-to-top" href="#home">↑</a>
-<footer>Crafted with elegance, clarity, and modern UI aesthetics • © 2026 Satish Bonagiri</footer>
+<footer>© 2026 Satish Bonagiri. All rights reserved.</footer>
 <script>
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const backToTop = document.querySelector('.back-to-top');
@@ -1744,6 +1744,7 @@
     const mobileNav = document.querySelector('#mobile-nav');
     const mobileInner = document.querySelector('.mobile-nav-inner');
     const nav = document.querySelector('nav');
+    const emailComposeLinks = document.querySelectorAll('.email-compose-link[data-email-user][data-email-domain]');
     const desktopLinks = document.querySelectorAll('.nav-links a[href^="#"]');
     const sectionTargets = document.querySelectorAll('main section[id]');
     let programmaticScrollTarget = null;
@@ -1957,6 +1958,17 @@
 
     setTheme(getStoredTheme() === 'light' ? 'light' : 'dark');
     updateCurrentNav(window.location.hash || '#home');
+
+    emailComposeLinks.forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        const user = link.dataset.emailUser || '';
+        const domain = link.dataset.emailDomain || '';
+        if (!user || !domain) return;
+
+        window.location.href = `mailto:${user}@${domain}`;
+      });
+    });
 
     // Throttled High-Velocity Scroll Event Pipeline (Eliminating Frame Drops)
     if (backToTop) {
