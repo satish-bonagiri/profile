@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="color-scheme" content="dark light"/>
 <title>Satish Bonagiri | Android Architect &amp; Technical Lead</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -471,9 +472,12 @@
       letter-spacing: -2px;
     }
 
+    /* Readable fallback if a browser declines gradient-clipped text. */
     .gradient {
+      color: var(--accent);
       background: linear-gradient(90deg, var(--accent), #ffffff, var(--accent2));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -1065,8 +1069,10 @@
     }
 
     html[data-theme="light"] .gradient {
+      color: #0284c7;
       background: linear-gradient(90deg, #0284c7, #0f172a, #7c3aed);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
