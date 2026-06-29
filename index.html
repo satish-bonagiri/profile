@@ -1445,7 +1445,7 @@
 <a aria-label="Satish Bonagiri home" class="logo logo-link" href="#home"><span class="logo-code">&lt;satish /&gt;</span></a>
 <div class="nav-links"><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#education">Education</a><a href="#contact">Contact</a></div>
 <div class="nav-actions">
-<button aria-label="Toggle light and dark themes" aria-pressed="false" class="theme-chip theme-toggle" type="button">☀️ <span>Light Theme</span></button>
+<button aria-label="Toggle light and dark themes" aria-pressed="false" class="theme-chip theme-toggle" type="button"><svg aria-hidden="true" class="theme-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg> <span>Light Theme</span></button>
 <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="mobile-menu-btn" type="button">
 <span aria-hidden="true" class="mobile-menu-icon"><span></span></span>
 <span class="sr-only">Toggle navigation menu</span>
@@ -1786,7 +1786,7 @@
       document.querySelectorAll('.theme-toggle').forEach(button => {
         button.setAttribute('aria-pressed', String(isLight));
         button.setAttribute('aria-label', 'Toggle light and dark themes');
-        button.innerHTML = isLight ? '🌙 <span>Dark Theme</span>' : '☀️ <span>Light Theme</span>';
+        button.innerHTML = isLight ? '<svg aria-hidden="true" class="theme-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> <span>Dark Theme</span>' : '<svg aria-hidden="true" class="theme-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg> <span>Light Theme</span>';
       });
     }
 
