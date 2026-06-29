@@ -277,17 +277,28 @@
       transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
+    /* Make the theme control's affordance obvious in dark mode.
+       The active state previously overrode the hover background, so “Dark Theme”
+       appeared unchanged even though the button remained interactive. */
     .theme-chip:hover,
     .theme-chip:focus-visible {
       color: var(--text);
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(var(--accent-rgb), 0.22);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(var(--accent-rgb), 0.34);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(var(--accent-rgb), 0.10);
     }
 
     .theme-chip[aria-pressed="true"] {
       color: var(--text);
       background: rgba(var(--accent-rgb), 0.10);
       border-color: rgba(var(--accent-rgb), 0.18);
+    }
+
+    .theme-chip[aria-pressed="true"]:hover,
+    .theme-chip[aria-pressed="true"]:focus-visible {
+      background: rgba(var(--accent-rgb), 0.18);
+      border-color: rgba(var(--accent-rgb), 0.42);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 0 0 3px rgba(var(--accent-rgb), 0.12);
     }
 
     html[data-theme="light"] .theme-chip {
@@ -300,14 +311,22 @@
     html[data-theme="light"] .theme-chip:hover,
     html[data-theme="light"] .theme-chip:focus-visible {
       color: #0f172a;
-      background: rgba(var(--accent-rgb), 0.08);
-      border-color: rgba(var(--accent-rgb), 0.16);
+      background: rgba(var(--accent-rgb), 0.10);
+      border-color: rgba(var(--accent-rgb), 0.24);
+      box-shadow: 0 10px 28px rgba(15,23,42,0.08), 0 0 0 3px rgba(var(--accent-rgb), 0.08);
     }
 
     html[data-theme="light"] .theme-chip[aria-pressed="true"] {
       color: #0f172a;
       background: rgba(var(--accent-rgb), 0.10);
       border-color: rgba(var(--accent-rgb), 0.16);
+    }
+
+    html[data-theme="light"] .theme-chip[aria-pressed="true"]:hover,
+    html[data-theme="light"] .theme-chip[aria-pressed="true"]:focus-visible {
+      background: rgba(var(--accent-rgb), 0.16);
+      border-color: rgba(var(--accent-rgb), 0.34);
+      box-shadow: 0 10px 28px rgba(15,23,42,0.10), 0 0 0 3px rgba(var(--accent-rgb), 0.10);
     }
 
     .nav-links {
